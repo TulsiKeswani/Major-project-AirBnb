@@ -1,0 +1,143 @@
+<% layout("/layouts/bolierplate")  %>
+<style>
+    .filters{
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .filter {
+        margin-right: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        opacity: 0.7;
+        text-align: center;
+        font-size: 0.8rem;
+        
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    .tax-toggle {
+        border: 1px solid rgb(0, 0, 0,0.2);
+        height: 2.75rem;
+        border-radius: 1rem;
+        padding: 0.5rem 1rem 0.4rem 1rem;
+        font-size: 0.95rem;
+        align-content: center;
+    }
+    .afterToggleOn{
+        display: none;
+    }
+</style>
+<body>
+   
+   <div class="filters navbar-toggler ">
+    <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-regular fa-chess-rook"></i></div>
+        <p>Castles</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>Campign</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-tractor"></i></div>
+        <p>Farms</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Amazing pools</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-umbrella-beach"></i></div>
+        <p>Beach Front</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-house-chimney-user"></i></div>
+        <p>Cabin</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-sailboat"></i></div>
+        <p>boats</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        <p>Mountain</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+        <p>Historical places</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-regular fa-snowflake"></i></div>
+        <p>Arctic</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-person-skiing"></i></div>
+        <p>ski-in/out</p>
+    </div>
+    <div class="tax-toggle">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display total before taxes</label>
+          </div>
+    </div>
+   </div>
+
+    <div class="row row-cols-lg-4  row-cols-md-3  row-cols-sm-2 row-cols-xs-1 "style="border-radius : 10px">
+        <% for(let listing of allListing ){ %>
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height: 20rem;">
+                
+                <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                    <p class="card-text">
+                    <b> <%= listing.title %></b>
+                   <p class="afterToggleOn"> &#8377; <%= listing.price.toLocaleString("en-IN") %> /night </p>
+                    <p class="beforeToggleOn"> &#8377; <%= (listing.price + (listing.price*0.18)).toLocaleString("en-IN") %> /night &nbsp; <b> including taxes </b> <p>
+                    </p>
+                    </div>
+               
+            </div>
+        </a>
+        <% } %>
+    </div>
+</body>
+
+<script>
+    let toggle = false;
+    let clickBtn = document.getElementById("flexSwitchCheckDefault");
+    clickBtn.addEventListener("click",() =>{
+        toggle = !toggle ;
+        let beforeToggleOn = document.getElementsByClassName("beforeToggleOn");
+        let afterToggleOn = document.getElementsByClassName("afterToggleOn");
+
+       
+        for(toggle1 of beforeToggleOn){
+            if(toggle){
+                toggle1.style.display = "none";
+            } else{
+                toggle1.style.display = "inline";
+            }
+         }
+         for(toggle2 of afterToggleOn){
+            if(toggle){
+                toggle2.style.display = "inline";
+            } else{
+                toggle2.style.display = "none";
+            }
+         }
+       
+    });
+</script>
+

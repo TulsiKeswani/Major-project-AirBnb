@@ -1,0 +1,99 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* background-color: #F8F8Fd; */
+}
+.container{
+    flex: 1;
+}
+.navbar{
+    height: 5rem;
+    background-color: white !important;
+}
+
+.fa-airbnb {
+    color: #fe424d !important ;
+    font-size: 2.2rem !important ;
+}
+/* footer */
+.nav-link{
+    color : #222222 !important;
+}
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+    margin-left: 0.5rem;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f_info-socials,.f-info-company,.f-info-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.f_info{
+    display: flex;
+    background-color: #ebebeb ;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    margin-top: 0.7rem;
+}
+.fa-brands{
+   font-size: 1.2rem;
+    margin-left: 1rem;
+}
+/* new */
+.listing-card{
+    border : none;
+    margin-bottom: 2rem;
+}
+.card-img-top{
+    border-radius: 1rem;
+    width: 100%;
+    object-fit: cover;
+}
+.card-body{
+    padding: 0%;
+}
+.card-text p{
+    font-weight: 400 !important;
+}
+.listing-link{
+    text-decoration: none;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+.add_btn{
+    background-color: #fe424d !important;
+    border: none;
+}
+
+/* edit ejs */
+/* same all properies as new ejs */
+
+/* show ejs */
+  
+
+.show_img{
+    height: 40vh;
+}
+.btns{
+    display: flex;
+}
+
+
+#map {
+    height: 400px;
+    width: 100vh;
+}

@@ -1,0 +1,60 @@
+<style>
+ .search-btn {
+  background-color: #fe424d;
+  color: #f0f8ff;
+  border-radius: 25px;
+  padding: auto;
+ }
+ .search-btn:hover {
+  background-color: #fe424d;
+  color: #f0f8ff;
+ }
+ .search-btn i {
+  display: inline;
+  margin-right: 0.5rem;
+ }
+ .search-inp {
+  border-radius: 25px;
+  text-align: center;
+ }
+</style>
+
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom  sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><i class="fa-brands fa-airbnb"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <b><a class="nav-link notvisible" href="/listings">Explore</a></b>
+      
+        </div>
+
+        <div class="navbar-nav ms-auto">
+          <form class="d-flex" role="search">
+            <input class="form-control me-2 search-inp" type="search" placeholder="Search Destination" aria-label="Search">
+            <button class="btn search-btn " type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+          </form>
+        </div>
+
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link notvisible" href="/listings/new">Airbnb your home</a>&nbsp;&nbsp;&nbsp;
+         <% if(!curruser){ %> 
+          <button type="button" class="btn btn-outline-light "><b><a class="notvisible" href="/signup" style="text-decoration: none; color: #fe424d;">SignUp</a></b></button>
+          <button type="button" class="btn btn-dark me-2"><a  class="notvisible"    href="/login" style="text-decoration: none; color: aliceblue;">Login</a></button>
+            
+
+          <% } %> 
+         <% if(curruser){ %> 
+            <button type="button" class="btn btn-dark"><a href="/logout" style="text-decoration: none; color: aliceblue;">LogOut</a></button>
+          <% } %>
+          
+        </div>
+      </div>
+    </div> 
+
+   
+  </nav>
