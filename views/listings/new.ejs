@@ -1,79 +1,237 @@
+<% layout("/layouts/bolierplate") %>
 
-
-
-<% layout("/layouts/bolierplate")  %>
+<style>
+  .form-select {
+    padding-block: 0 !important;
+  }
+  .row{
+    margin-right: 0 !important;
+  }
+</style>
 <body>
-    <h3 class="offset-2">Create new list</h3>
-    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-8 offset-2">
-            <div class="mb-3">
-                <label for="title" class="form-label">title</label>
-                <input 
-                name ="listing[title]" 
-                placeholder="Add a catchy Title" 
-                type="text" class="form-control" 
-                required
-                >
-                <div class="invalid-feedback"> title required!</div>
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">description</label>
-                <textarea 
-                name ="listing[description]" 
-                placeholder="Enter description" 
-                type="text" 
-                class="form-control"
-                 required
-                 ></textarea>
-                 <div class="invalid-feedback"> pls! Enter short description</div>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Upload file</label>
-                <input 
-                name ="listing[image]" 
-                 type="file" 
-                 class="form-control"
-                 required
-                 >
-            </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">price</label>
-                <input 
-                name ="listing[price]" 
-                placeholder="1200" 
-                class="form-control" 
-                required
-                >
-                <div class="invalid-feedback">price is valid</div>
-            </div>
-            <div class="row">
-            <div class="mb-3 col-md-4">
-                <label for="location" class="form-label">Location</label>
-                <input 
-                name ="listing[location]" 
-                placeholder="Jaipur Rajsthan" 
-                type="text" 
-                class="form-control" 
-                required
-                >
-                <div class="invalid-feedback">  pls! Enter valid location</div>
-            </div>
-            <div class="mb-3  col-md-8">
-                <label for="country" class="form-label">Country</label>
-                <input 
-                name ="listing[country]" 
-                placeholder="India" 
-                type="text"
-                class="form-control" 
-                required
-                 >
-                 <div class="invalid-feedback"> pls! Enter valid country name</div>
-            </div>
+  <form
+    method="post"
+    action="/listings"
+    novalidate
+    class="needs-validation mt-2"
+    enctype="multipart/form-data"
+  >
+    <div class="row g-0" style="margin-right: none !important;">
+      <div class="col-lg-8 col-md-12 offset-lg-2">
+        <div class="row">
+        <div class="mb-3 col-lg-6 col-md-12">
+          <label for="title" class="form-label">Title</label>
+          <input
+            name="listing[title]"
+            placeholder="Add a catchy Title"
+            type="text"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Title required!</div>
         </div>
-            <button class="btn btn-dark add_btn">Add</button><br>
+
+        <div class="mb-3 col-lg-6 col-md-12">
+          <label for="hostName" class="form-label">Host Name</label>
+          <input
+            name="listing[hostName]"
+            placeholder="Add Host Name"
+            type="text"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Host Name required!</div>
+        </div>
+        
+      </div>
+        
+        <div class="mb-3 ">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            name="listing[description]"
+            placeholder="Enter description"
+            type="text"
+            class="form-control"
+            required
+          ></textarea>
+          <div class="invalid-feedback">pls! Enter short description</div>
+        </div>
+
+        <!-- image section -->
+        <div class="image_section">
+          <div class="mb-3">
+            <label for="image" class="form-label"
+              >Upload Main(Hotel/Resorte Front) Image</label
+            >
+            <input
+              name="listing[image][]"
+              type="file"
+              class="form-control"
+              required
+            />
+          </div>
+
+         
+          <div class="mt-4">
+            <label for="image" class="form-label">Upload Room images</label>
+            <div class="row">
+          
+              <div class="mb-3 col-lg-4">
+                <input
+                  name="listing[image][]"
+                  type="file"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3 col-lg-4">
+                <input
+                  name="listing[image][]"
+                  type="file"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <div class="mb-3  col-lg-4">
+                
+                <input
+                  name="listing[image][]"
+                  type="file"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 md-col-6 sm-col-12">
+          <label for="image" class="form-label">Upload Host image</label>
+          <input
+            name="listing[image][]"
+            type="file"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label">price</label>
+          <input
+            name="listing[price]"
+            placeholder="1200"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">price is valid</div>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="location" class="form-label">City</label>
+            <input
+              name="listing[location][]"
+              placeholder="Enter city"
+              type="text"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">pls! Enter valid location</div>
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="State" class="form-label">State</label>
+            <input
+              name="listing[location][]"
+              placeholder="Enter state"
+              type="text"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">pls! Enter valid country name</div>
+          </div>
+
+          <div class="mb-3 col-md-4">
+            <label for="country" class="form-label">Country</label>
+            <input
+              name="listing[country]"
+              placeholder="India"
+              type="text"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">pls! Enter valid country name</div>
+          </div>
+        </div>
+
+        <!-- facilities  -->
+        <div class="mb-3" id="facilities" >
+          <label for="image" class="form-label">2 - Facilities are required</label><br>
+          <div class="mb-3">
+            <input
+            name="listing[facilities][]"
+            class="form-control"
+            placeholder="Enter Facilities"
+            required
+          />
+          </div>
+          <div class="mb-3">
+            <input
+            name="listing[facilities][]"
+            class="form-control"
+            placeholder="Enter Facilities"
+            required
+          />
+          </div>
+
+        </div>
+        <button style="all: unset; cursor: pointer; color: #fe424d;" id="facility_add_button" class="mb-3">Add More Facilities <i class="fa-solid fa-plus"></i></button><br>
+
+
+        <label for="floatingSelect">Choose Category</label>
+        <div class="form-floating mb-3 col-md-4">
+          <select
+            class="form-select"
+            id="floatingSelect"
+            aria-label="Floating label select example"
+            name="listing[category]"
+          >
+            <option selected>Other</option>
+            <option value="Trending">Trending</option>
+            <option value="Castles">Castles</option>
+            <option value="Three">Three</option>
+            <option value="Campign">Campign</option>
+            <option value="Farms">Farms</option>
+            <option value="Amazing pools">Amazing pools</option>
+            <option value="Beach Front">Beach Front</option>
+            <option value="Cabin">Cabin</option>
+            <option value="Boats">Boats</option>
+            <option value="Rooms">Rooms</option>
+            <option value="Mountain">Mountain</option>
+            <option value="Historical places">Historical places</option>
+            <option value="Arctic">Arctic</option>
+            <option value="ski-in/out">ski-in/out</option>
+          </select>
+        </div>
+        <button class="btn btn-dark add_btn">Add</button><br />
+      </div>
     </div>
-    </div>
-       
-    </form>
+  </form>
 </body>
+
+
+<script>
+ document.getElementById("facility_add_button").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent page refresh
+
+    let newFacilityDiv = document.createElement("div");
+    newFacilityDiv.classList.add("mb-3");
+
+    let newInput = document.createElement("input");
+    newInput.setAttribute("name", "listing[facilities][]");
+    newInput.setAttribute("class", "form-control");
+    newInput.setAttribute("placeholder", "Enter Facilities");
+    newFacilityDiv.appendChild(newInput);
+
+    document.getElementById("facilities").appendChild(newFacilityDiv);
+  });
+</script>

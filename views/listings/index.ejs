@@ -1,143 +1,262 @@
-<% layout("/layouts/bolierplate")  %>
+<% layout("/layouts/bolierplate") %>
+
 <style>
-    .filters{
-        display: flex;
-        align-items: center;
-        width: 100%;
+  .filters {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .filter {
+    margin-right: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .tax-toggle {
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    height: 2.75rem;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem 0.4rem 1rem;
+    font-size: 0.95rem;
+    align-content: center;
+  }
+  .afterToggleOn {
+    display: none;
+  }
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background: white;
+    padding: 10px;
+  }
+
+  .filters-container {
+    overflow-x: auto;
+    width: 80%;
+  }
+  .filter a {
+    all: unset;
+  }
+  .filters {
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .scroll-btn {
+    all: unset;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    z-index: 10;
+  }
+
+  .left {
+    left: 2vw;
+  }
+
+  .right {
+    right: 0.5vw;
+  }
+  /* @media (max-width:630px) {
+    .scroll-btn{
+      display: none;
     }
-    .filter {
-        margin-right: 2rem;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        opacity: 0.7;
-        text-align: center;
-        font-size: 0.8rem;
-        
+
+    .filters:hover .scroll-btn {
+    display: block; /* Show on hover */
+    /* } 
+  }
+   */ 
+
+  @media (max-width: 575px) {
+    .card_div {
+      margin: auto;
     }
-    .filter:hover{
-        opacity: 1;
-        cursor: pointer;
-    }
-    .tax-toggle {
-        border: 1px solid rgb(0, 0, 0,0.2);
-        height: 2.75rem;
-        border-radius: 1rem;
-        padding: 0.5rem 1rem 0.4rem 1rem;
-        font-size: 0.95rem;
-        align-content: center;
-    }
-    .afterToggleOn{
-        display: none;
-    }
+  }
 </style>
 <body>
-   
-   <div class="filters navbar-toggler ">
+  <div class="filters navbar-toggler">
+    <button class="scroll-btn left" onclick="scrollLeftSide()">
+      <i class="fa-solid fa-circle-chevron-left"></i>
+    </button>
+    <div class="" style="display: flex; width: 70%; margin-left: 40px;align-items: center;">
     <div class="filter">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
+      <div><i class="fa-solid fa-globe"></i></div>
+      <a href="/listings">All</a>
     </div>
     <div class="filter">
-        <div><i class="fa-regular fa-chess-rook"></i></div>
-        <p>Castles</p>
+      <div><i class="fa-solid fa-fire"></i></div>
+      <a href="/listings?category=Trending">Trending</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-campground"></i></div>
-        <p>Campign</p>
+      <div><i class="fa-regular fa-chess-rook"></i></div>
+      <a href="/listings?category=Castles">Castles</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-tractor"></i></div>
-        <p>Farms</p>
+      <div><i class="fa-solid fa-campground"></i></div>
+      <a href="/listings?category=Campign">Campign</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>Amazing pools</p>
+      <div><i class="fa-solid fa-tractor"></i></div>
+      <a href="/listings?category=Farms">Farms</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-umbrella-beach"></i></div>
-        <p>Beach Front</p>
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <a href="/listings?category=Amazing pools">Amazing pools</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-house-chimney-user"></i></div>
-        <p>Cabin</p>
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      <a href="/listings?category=Beach Front">Beach Front</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-sailboat"></i></div>
-        <p>boats</p>
+      <div><i class="fa-solid fa-house-chimney-user"></i></div>
+      <a href="/listings?category=Cabin">Cabin</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
+      <div><i class="fa-solid fa-sailboat"></i></div>
+      <a href="/listings?category=Boats">Boats</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p>Mountain</p>
+      <div><i class="fa-solid fa-bed"></i></div>
+      <a href="/listings?category=Rooms">Rooms</a>
     </div>
     <div class="filter">
-        <div><i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Historical places</p>
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <a href="/listings?category=Mountain">Mountain</a>
     </div>
     <div class="filter">
-        <div><i class="fa-regular fa-snowflake"></i></div>
-        <p>Arctic</p>
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <a href="/listings?category=Historical places">Historical places</a>
     </div>
     <div class="filter">
-        <div><i class="fa-solid fa-person-skiing"></i></div>
-        <p>ski-in/out</p>
+      <div><i class="fa-regular fa-snowflake"></i></div>
+      <a href="/listings?category=Arctic">Arctic</a>
     </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-person-skiing"></i></div>
+      <a href="/listings?category=ski-in/out">ski-in/out</a>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-circle-question"></i></div>
+      <a href="/listings?category=Other">Other</a>
+    </div>
+ 
     <div class="tax-toggle">
-        <div class="form-check-reverse form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Display total before taxes</label>
-          </div>
+      <div class="form-check-reverse form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+        />
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Display total before taxes</label
+        >
+      </div>
     </div>
-   </div>
+  </div>
+ 
+    <button class="scroll-btn right" onclick="scrollRight()">
+      <i class="fa-solid fa-circle-chevron-right"></i>
+    </button>
+  </div>
 
-    <div class="row row-cols-lg-4  row-cols-md-3  row-cols-sm-2 row-cols-xs-1 "style="border-radius : 10px">
-        <% for(let listing of allListing ){ %>
-        <a href="/listings/<%= listing._id %>" class="listing-link">
-            <div class="card listing-card">
-                <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height: 20rem;">
-                
-                <div class="card-img-overlay"></div>
-                    <div class="card-body">
-                    <p class="card-text">
-                    <b> <%= listing.title %></b>
-                   <p class="afterToggleOn"> &#8377; <%= listing.price.toLocaleString("en-IN") %> /night </p>
-                    <p class="beforeToggleOn"> &#8377; <%= (listing.price + (listing.price*0.18)).toLocaleString("en-IN") %> /night &nbsp; <b> including taxes </b> <p>
-                    </p>
-                    </div>
-               
-            </div>
-        </a>
-        <% } %>
-    </div>
+  <div
+    class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 card_div"
+    style="border-radius: 10px"
+  >
+    <% for(let listing of allListing ){ %>
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+      <div class="card listing-card">
+        <img
+          src="<%= listing.image[0].url %>"
+          class="card-img-top"
+          alt="listing_img"
+          style="height: 20rem"
+        />
+
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <p class="card-text" style="margin: 0;">
+            <b> <%= listing.title %></b>
+          </p>
+          <p style="margin: 5px;"><%=listing.location[0] %> , <%= listing.location[1] %></p>
+          <p class="afterToggleOn">
+            &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
+          </p>
+          <p class="beforeToggleOn">
+            &#8377; <%= (listing.price +
+            (listing.price*0.18)).toLocaleString("en-IN") %> /night &nbsp;
+            <b> including taxes </b>
+          </p>
+          <p></p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
 </body>
 
 <script>
-    let toggle = false;
-    let clickBtn = document.getElementById("flexSwitchCheckDefault");
-    clickBtn.addEventListener("click",() =>{
-        toggle = !toggle ;
-        let beforeToggleOn = document.getElementsByClassName("beforeToggleOn");
-        let afterToggleOn = document.getElementsByClassName("afterToggleOn");
+  let toggle = false;
+  let clickBtn = document.getElementById("flexSwitchCheckDefault");
+  clickBtn.addEventListener("click", () => {
+    toggle = !toggle;
+    let beforeToggleOn = document.getElementsByClassName("beforeToggleOn");
+    let afterToggleOn = document.getElementsByClassName("afterToggleOn");
 
-       
-        for(toggle1 of beforeToggleOn){
-            if(toggle){
-                toggle1.style.display = "none";
-            } else{
-                toggle1.style.display = "inline";
-            }
-         }
-         for(toggle2 of afterToggleOn){
-            if(toggle){
-                toggle2.style.display = "inline";
-            } else{
-                toggle2.style.display = "none";
-            }
-         }
-       
-    });
+    for (toggle1 of beforeToggleOn) {
+      if (toggle) {
+        toggle1.style.display = "none";
+      } else {
+        toggle1.style.display = "inline";
+      }
+    }
+    for (toggle2 of afterToggleOn) {
+      if (toggle) {
+        toggle2.style.display = "inline";
+      } else {
+        toggle2.style.display = "none";
+      }
+    }
+  });
+
+  const filters = document.querySelector(".filters");
+
+  function scrollLeftSide() {
+    console.log("Before Left Scroll:", filters.scrollLeft);
+    filters.scrollBy({ left: -200, behavior: "smooth" });
+    console.log("After Left Scroll:", filters.scrollLeft);
+  }
+
+  function scrollRight() {
+    console.log("Before right Scroll:", filters.scrollLeft);
+    filters.scrollBy({ left: 200, behavior: "smooth" });
+    console.log("After right Scroll:", filters.scrollLeft);
+  }
 </script>
-

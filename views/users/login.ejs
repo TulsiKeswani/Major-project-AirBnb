@@ -1,9 +1,9 @@
 <% layout("/layouts/bolierplate")  %>
 <body>
-    <h3 class="offset-3">Login</h3>
+    <p class="mb-5"></p>
     <form class="needs-validation" novalidate action="/login" method="post">
     <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-lg-6 col-md-8 offset-lg-3 offset-md-2" style="border : 1px solid rgb(0, 0, 0,0.1);padding: 1rem 3rem 3rem 3rem ; box-shadow: 2px 3px 10px rgb(0, 0, 0,0.1);">
             
             <div class="mb-3">
                 <label for="username" class="form-label">username</label>
@@ -11,6 +11,7 @@
                 name ="username" 
                 id = "username"
                 type="text" class="form-control" 
+                placeholder="Enter Your Username"
                 required
                 >
                 <div class="invalid-feedback"> username required!</div>
@@ -20,6 +21,7 @@
                 <input 
                 name ="password" 
                 id = "password"
+                placeholder="Enter Your Password"
                 type="password" class="form-control" 
                 required
                 >

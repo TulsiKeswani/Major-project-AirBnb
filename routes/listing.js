@@ -13,12 +13,13 @@ router
 .get(wrapAsync(listingControllers.index))
 .post(
     loggedIn,
-    upload.single('listing[image]'),
+   
+    upload.array('listing[image][]',8),
     validateSchema,
     wrapAsync(listingControllers.createListing)
 );
 
-
+router.get("/search",listingControllers.searchResult);
 
  router.get("/new",loggedIn,listingControllers.renderNewForm);
  
@@ -28,7 +29,7 @@ router
  .put(
     loggedIn,
     isOwner,
-    upload.single('listing[image]'),
+    upload.array('listing[image][]',8),
     validateSchema,
    wrapAsync(listingControllers.updateListing)
 )

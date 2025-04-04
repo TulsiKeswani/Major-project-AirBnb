@@ -1,62 +1,136 @@
 <style>
 
-     .flatpickr-day {
-        font-weight: bold !important;
-        color: #333 !important;
-        border-top-left-radius: none !important;
-    }
-    .calander {
-        display: flex;
-    }
-    .calander-card {
-       height: auto;
-       padding: 2rem;
-       border-radius: 1rem;
-       border: 2px solid black;
-       background-color: #e3f2fd;
+       
+       .show_card .img-fluid{
+        border-radius:20px ;
+        object-fit: fill;
+        width: 100%;
+        height: 80%;
+       }
+       .show_card{
+        border: none;
+        
+       }
+       .img_div{
+            height: 70%;
+        }
+       .show_card .host_details{
+            display: flex;
+            height: 50px;
+            padding-top: 4rem;
+            padding-bottom: 1rem;
+            align-items: center;
+            gap:1rem;
+            margin-bottom: 1rem;
+       }
 
-    }
-    .show{
-        overflow: hidden;
+       .show_card .host_details img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+       }
+       .show_card .host_details h4{
+            font-size: 1rem;
+       }
+
+       .hotel_details{
+            display: flex;
+            flex-direction: column;
+
+       }
+
+       .hotel_details p{
+        font-size: 1.2rem;
+            margin: 0;
+            font-family:sans-serif;
+       }
+       .main_container{
+        display: flex;
+       }
+       .room_container{
+        display: flex;
+        justify-content: space-between;
+       }
+       .room_container .slider button{
+            all: unset;
+            font-size: 1rem;
+            cursor: pointer;
+       }
+       .room_img_container{
+        overflow-x: auto;
+        scroll-behavior: smooth; 
        }
 </style>
 
 <% layout("/layouts/bolierplate")  %>
 
-<script>
-    const mapToken = "<%= process.env.MAP_TOKEN %>";
-    const coordinates = <%- JSON.stringify(ind_listing.geometry.coordinates) %>
-</script>
 
-<div class="row mt-3 show">
-    <div class="col-8 offset-1">
-        <h3 class="offset-3 mt-2"><%= ind_listing.title %></h3>
-    </div>
-        <div class="card col-6 offset-3 listing-card">
-            <img src="<%= ind_listing.image.url %>" class="card-img-top show_img" alt="Listing_img">
-            
-                <div class="card-body">
-                    <p class="card-text">
-                       <b style="color: #fe474d;"> Owned By : </b> <%= ind_listing.owner.username %><br>
-                        <%= ind_listing.description %><br>
-                        &#8377;<%= ind_listing.price.toLocaleString("en-IN") %><br>
-                        <%= ind_listing.location %><br>
-                        <%= ind_listing.country %><br>
-                    </p>
+<div class="row mt-3 main_container" >
+    <div class="col-lg-8 col-md-10 col-sm-12 offset-md-1 offset-sm-0" style="padding: 0!important; padding-inline: 0.5rem !important;">
+        <div class="show_card offset-lg-2 offset-md-1 offset-sm-0">
+            <div class="row">
+                <div  class="col-lg-12  col-md-12 col-sm-12 img_div">
+                <img src="<%= ind_listing.image[0].url %>" alt="image" class="img-fluid">
                 </div>
-                
-        </div>
-        
-        <% if(curruser && curruser._id.equals(ind_listing.owner._id)) { %> 
-            <div class="btns">
-                <a href="/listings/<%= ind_listing._id %>/edit" class="btn btn-dark col-1 offset-3 add_btn">Edit</a>
-
-                <form method="post" action="/listings/<%= ind_listing._id %>?_method=Delete">
-                    <button type="submit" class="btn btn-dark offset-5 ">Delete</button>
-                </form>
             </div>
-            <% } %>
-        <div class="offset-3 col-8 mb-3"> 
+            <div class="host_details">
+                <img src="<%= ind_listing.image[4].url %>" alt="">
+                <h4><b>Hosted By :</b> <%= ind_listing.hostName %></h4>
+            </div>
+            <div class="hotel_details">
+                <p><b><%= ind_listing.title%></b></p>
+                <p><%= ind_listing.description %></p>
+                <p><%= ind_listing.location[0] %>,<%= ind_listing.location[1] %></p>
+                <p><%= ind_listing.country %></p>
+                <p class="mb-3">&#8377;<b><%= ind_listing.price %></b>/night</p>
+                <% if(curruser && curruser._id.equals(ind_listing.owner._id)) { %> 
+                    <div class="btns ">
+                        <a href="/listings/<%= ind_listing._id %>/edit" class="btn btn-dark  add_btn" style="padding-inline: 1rem !important; margin-right: 10px;">Edit</a>
+        
+                        <form method="post" action="/listings/<%= ind_listing._id %>?_method=Delete">
+                            <button type="submit" class="btn btn-dark">Delete</button>
+                        </form>
+                    </div>
+                <% } %>
+            </div>
+           <hr>
+        </div>
+
+        <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-3">
+
+            <p><b><i class="fa-solid fa-hotel"></i>&nbsp; &nbsp; &nbsp;Facilities</b></p>
+
+            <div class="row" style="margin-left: 1rem;">
+                <% for(facility of ind_listing.facilities ) { %>
+                    <ul class="col-md-6 col-sm-12">
+                        <li><%= facility %></li>
+                    </ul>
+                 <% } %>
+            </div>
+            <hr>
+        </div>
+
+            <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-2" >
+                    <div class="room_container">
+                        <p><b><i class="fa-solid fa-bed"></i>&nbsp; &nbsp; &nbsp;Where You sleep</b></p>
+                        <div class="slider">
+                            <button class="scroll-btn left" onclick="scrollLeftSide()">  <i class="fa-solid fa-circle-chevron-left"></i> </button>
+                            <button class="scroll-btn left" onclick="scrollRightSide()">  <i class="fa-solid fa-circle-chevron-right"></i> </button>
+
+                        </div>
+                    </div>
+                
+
+                <div style=" display: flex;" class="room_img_container">
+                    <img src="<%= ind_listing.image[1].url %>" alt="Room Images" style="height: 150px; width: 300px; object-fit: cover; margin-right: 10px;">
+                    <img src="<%= ind_listing.image[2].url %>" alt="Room Images" style="height: 150px; width: 300px; object-fit: cover; margin-right: 10px;">
+                    <img src="<%= ind_listing.image[3].url %>" alt="Room Images" style="height: 150px; width: 300px; object-fit: cover; margin-right: 10px;">
+                </div>
+
+            </div>
+        
+        
+        <div class="offset-lg-2 offset-md-1 offset-sm-0 col-10 mb-3"> 
            <% if(curruser) { %> 
            <hr>
             <h4>Leave a Review</h4> 
@@ -77,7 +151,7 @@
                         <label for="first-rate5" title="Amazing">5 stars</label>
                       </fieldset>
                 </div>
-                <div  class="mb-3 mt-3">
+                <div  class="mb-3 mt-3 col-12">
                     <label class="form-label" for="comment">comment</label>
                     <textarea class="form-control" nonvalidate type="text" name="review[comment]" cols="30" rows="5" id="rating"  required></textarea>
                     <div class="invalid-feedback"> plss add some comment for review</div>
@@ -110,38 +184,43 @@
          <% } %>
         </div>
 
-        <!-- <div class="offset-3 col-12 mb-3 calander">
-            <div class="col-6">
-                <div id="inline-calendar"></div>
-                <p id="daysCount"></p>
-            </div>
+       
 
-            <div class="card calander-card  " style="width: 20rem; display: flex;">
-                <div class="card-body ">
-                    <p class="card-title"><b>8989</b> &nbsp; &nbsp;  month</p>
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btncheck1">Checkbox 1</label>
-                      
-                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btncheck2">Checkbox 2</label>
-                </div>      
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </div>
+    <script>
+        const mapToken = "<%= process.env.MAP_TOKEN %>";
+        const coordinates = <%- JSON.stringify(ind_listing.geometry.coordinates) %>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+            <div class="offset-lg-2 offset-md-1 offset-sm-0 mb-3 row">
+                <h3>Where you’ll be</h3>
+                <div id="map" class=" col-md-8 col-sm-12 "></div>
             
-        </div> -->
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-        <div class="offset-3 col-12 mb-3">
-            <h3>Where you’ll be</h3>
-            <div id="map"></div>
-           
-        </div>
+            </div>
         
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let roomImages = document.getElementById("imageContainer");
+    let leftBtn = document.getElementById("leftBtn");
+    let rightBtn = document.getElementById("rightBtn");
+
+    if (leftBtn && rightBtn && roomImages) {
+        leftBtn.addEventListener("click", function () {
+            console.log("Left button clicked");
+            roomImages.scrollBy({ left: -300, behavior: "smooth" });
+        });
+
+        rightBtn.addEventListener("click", function () {
+            console.log("Right button clicked");
+            roomImages.scrollBy({ left: 300, behavior: "smooth" });
+        });
+    } else {
+        console.error("One or more elements not found!");
+    }
+});
+
+</script>
 
 <script src="/js/map.js"></script>
 <script src="/js/calander.js"></script>

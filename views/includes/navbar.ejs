@@ -1,60 +1,195 @@
 <style>
- .search-btn {
-  background-color: #fe424d;
-  color: #f0f8ff;
-  border-radius: 25px;
-  padding: auto;
- }
- .search-btn:hover {
-  background-color: #fe424d;
-  color: #f0f8ff;
- }
- .search-btn i {
-  display: inline;
-  margin-right: 0.5rem;
- }
- .search-inp {
-  border-radius: 25px;
-  text-align: center;
- }
+  .Wonderlust_navbar {
+    height: 5rem;
+    width: 100vw;
+    padding-inline: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.1);
+  }
+
+  /* section1 styling */
+  .Wonderlust_navbar .section_1 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 1rem;
+  }
+
+  .Wonderlust_navbar .section_1 .navbar_icon {
+    color: #fe424d;
+    font-size: 2rem;
+  }
+
+  .Wonderlust_navbar .section_1 .nav_title {
+    all: unset;
+    font-size: 1.3rem;
+  }
+
+  /* section2 styling */
+
+  .Wonderlust_navbar .section_2 {
+    display: flex;
+    gap: 5px;
+  }
+
+  .Wonderlust_navbar .section_2 .input,
+  .nav_btn {
+    height: 2.5rem;
+    padding: 0.5rem 1.3rem;
+    border-radius: 25px;
+    border: 1px solid rgb(128, 128, 128, 0.4);
+    text-align: center;
+  }
+  .Wonderlust_navbar .section_2 .input:hover {
+    box-shadow: 0px 0px 5px white, 0px 0px 5px #fe424d;
+  }
+
+  .Wonderlust_navbar .section_2 .nav_btn {
+    background-color: #fe424d;
+    color: #f0f8ff;
+  }
+
+  .Wonderlust_navbar .section_2 .nav_btn:hover {
+    background-color: rgb(254, 66, 77, 0.9);
+  }
+  /* section 3 */
+
+  .Wonderlust_navbar .section_3 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section_3_link {
+    text-decoration: none;
+    color: #222;
+  }
+  .Wonderlust_navbar .section_3 .button {
+    background-color: black;
+    padding: 8px 15px;
+    border-radius: 7px;
+  }
+
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+  .dropdown {
+    display: none;
+  }
+
+  @media (max-width: 930px) {
+    .Wonderlust_navbar .section_3 {
+      display: none;
+    }
+    .dropdown {
+      display: inline-block;
+    }
+  }
+
+  @media (max-width: 625px) {
+    .section_1 {
+      display: none !important;
+    }
+    .Wonderlust_navbar .section_2 .input {
+      width: 80vw;
+      height: 3rem;
+    }
+
+    .Wonderlust_navbar .section_2 .nav_btn {
+      display: none;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .Wonderlust_navbar .section_2 .input {
+      width: 70vw;
+    }
+  }
 </style>
+<nav class="Wonderlust_navbar">
+  <div class="section_1">
+    <a class="navbar_icon" href="/"><i class="fa-regular fa-compass"></i></a>
+    <b><a class="nav_title" href="/listings">Explore</a></b>
+  </div>
 
+  <form class="section_2" method="get" action="/listings/search">
+    <input
+      type="text"
+      name="query"
+      placeholder="Search Destination"
+      class="input"
+      id="input"
+    />
+    <button type="submit" class="nav_btn">
+      <i class="fa-solid fa-magnifying-glass" style="margin-right: 10px"></i
+      ><span>Search</span>
+    </button>
+  </form>
 
+  <div class="section_3">
+    <a class="section_3_link" href="/listings/new">Airbnb your home</a>
+    <% if(!curruser){ %>
+    <button type="button" style="all: unset">
+      <b
+        ><a
+          class="notvisible section_3_link"
+          href="/signup"
+          style="color: rgb(254, 66, 77, 0.9)"
+          >SignUp</a
+        ></b
+      >
+    </button>
+    <button type="button" class="button">
+      <a
+        class="notvisible section_3_link"
+        href="/login"
+        style="color: aliceblue"
+        >Login</a
+      >
+    </button>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom  sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"><i class="fa-brands fa-airbnb"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <b><a class="nav-link notvisible" href="/listings">Explore</a></b>
-      
-        </div>
+    <% } %> <% if(curruser){ %>
+    <button type="button" class="button">
+      <a href="/logout" class="section_3_link" style="color: aliceblue"
+        >LogOut</a
+      >
+    </button>
+    <% } %>
+  </div>
 
-        <div class="navbar-nav ms-auto">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 search-inp" type="search" placeholder="Search Destination" aria-label="Search">
-            <button class="btn search-btn " type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-          </form>
-        </div>
+  <div class="dropdown">
+    <button
+      class="btn dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i class="fa-solid fa-bars" style="font-size: 1.5rem"></i>
+    </button>
+    <ul
+      class="dropdown-menu"
+      style="
+        background-color: #fff;
+        height: 150px;
+        box-shadow: 2px 3px 10px rgb(0, 0, 0, 0.4);
+        border: 1px solid transparent;
+      "
+    >
+      <li><a class="dropdown-item" href="#">Airbnb Your Home</a></li>
+      <% if (!curruser) { %>
+      <li><a class="dropdown-item" href="/signup">Signup</a></li>
+      <li><a class="dropdown-item" href="/login">Login</a></li>
+      <% } %> <% if(curruser){ %>
+      <li><a class="dropdown-item" href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
 
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link notvisible" href="/listings/new">Airbnb your home</a>&nbsp;&nbsp;&nbsp;
-         <% if(!curruser){ %> 
-          <button type="button" class="btn btn-outline-light "><b><a class="notvisible" href="/signup" style="text-decoration: none; color: #fe424d;">SignUp</a></b></button>
-          <button type="button" class="btn btn-dark me-2"><a  class="notvisible"    href="/login" style="text-decoration: none; color: aliceblue;">Login</a></button>
-            
-
-          <% } %> 
-         <% if(curruser){ %> 
-            <button type="button" class="btn btn-dark"><a href="/logout" style="text-decoration: none; color: aliceblue;">LogOut</a></button>
-          <% } %>
-          
-        </div>
-      </div>
-    </div> 
-
-   
-  </nav>
+<script>
+  document.getElementById("input").addEventListener("input", function (e) {
+    console.log(e.target.value); 
+  });
+</script>

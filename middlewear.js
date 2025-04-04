@@ -4,6 +4,8 @@ const ExpressError = require("./utility/ExpressError");
 const {reviewSchema,listingSchema} = require("./schema.js");
 
 module.exports.loggedIn = (req,res,next) => {
+
+    console.log("loggedIn")
     if(!req.isAuthenticated() ){
         req.session.redirectUrl = req.originalUrl ;
         req.flash("error","You're not loggedIn !");
@@ -20,6 +22,7 @@ module.exports.saveRedirectUrl = (req,res,next) => {
 };
 
 module.exports.isOwner = async (req,res,next) => {
+    console.log("Owner")
     let {id} = req.params;
     const listing = await Listing.findById(id);
     if(!listing.owner._id.equals(res.locals.curruser._id)){
@@ -40,6 +43,7 @@ module.exports.isReviewAuthor = async (req,res,next) => {
 };
 
 module.exports.validateReviewSchema = (req,res,next) =>{
+    console.log("Validation");
     let {error} = reviewSchema.validate(req.body);
     if(error){
         let errMsg = error.details.map((el) => el.message).join(",");
@@ -50,6 +54,7 @@ module.exports.validateReviewSchema = (req,res,next) =>{
 }
 
 module.exports. validateSchema = (req,res,next) =>{
+    console.log("In Validation face --> ",req.body);
     let {error} = listingSchema.validate(req.body);
     if(error){
         let errMsg = error.details.map((el) => el.message).join(",");

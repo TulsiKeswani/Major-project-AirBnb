@@ -1,22 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x:hidden;
     /* background-color: #F8F8Fd; */
 }
 .container{
     flex: 1;
 }
-.navbar{
-    height: 5rem;
-    background-color: white !important;
-}
 
-.fa-airbnb {
-    color: #fe424d !important ;
-    font-size: 2.2rem !important ;
-}
 /* footer */
 .nav-link{
     color : #222222 !important;

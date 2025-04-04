@@ -11,3 +11,7 @@ flatpickr("#inline-calendar", {
         }
     }
 });
+
+let para = document.querySelector(".card-pricing");
+para.innerHTML = `<b>${flatpickr.onClose.differenceInDays}</b>`;
+console.log(para);

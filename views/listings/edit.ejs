@@ -3,13 +3,24 @@
 <body>
     <h4 class="offset-2 mt-2">Edit Your list</h4>
     <form method="post" action="/listings/<%= E_listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data" >
-        <div class="row">
-            <div class="col-8 offset-2">
+        <div class="row md-col-8 sm-col-12 offset-md-2">
+            <div>
                 <div class="mb-3">
                     <label for="title" class="form-label">title</label>
                     <input 
                     name ="listing[title]" 
                     value="<%= E_listing.title %>" 
+                    type="text" 
+                    class="form-control"
+                    required
+                    >
+                    <div class="invalid-feedback"> title required!</div>
+                </div>
+                <div class="mb-3">
+                    <label for="hostName" class="form-label">Host Name</label>
+                    <input 
+                    name ="listing[hostName]" 
+                    value="<%= E_listing.hostName %>" 
                     type="text" 
                     class="form-control"
                     required
@@ -29,12 +40,55 @@
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">old image</label> <br>
-                    <img style="height: 150px; width: 250px;" src="<%=originalUrl %>">
+                    <img style="height: 150px; width: 250px;" src="<%= originalUrl %>">
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload new image URL</label>
                     <input 
-                    name ="listing[image]" 
+                    name ="listing[image][]" 
+                    type="file" 
+                    class="form-control"
+                  >
+                    <div class="invalid-feedback">pls! Add valid img URL</div>
+                </div>
+
+                <div>
+                    <label for="image" class="form-label">Change Room Images</label>
+                    <div class="mb-3">
+                        <input 
+                        name ="listing[image][]" 
+                        type="file" 
+                        class="form-control"
+                      >
+                        <div class="invalid-feedback">pls! Add valid img URL</div>
+                    </div>
+    
+                    
+                    <div class="mb-3">
+                        <input 
+                        name ="listing[image][]" 
+                        type="file" 
+                        class="form-control"
+                      >
+                        <div class="invalid-feedback">pls! Add valid img URL</div>
+                    </div>
+    
+                    <div class="mb-3">
+                       
+                        <input 
+                        name ="listing[image][]" 
+                        type="file" 
+                        class="form-control"
+                      >
+                        <div class="invalid-feedback">pls! Add valid img URL</div>
+                    </div>
+    
+                </div>
+                
+                <div class="mb-3">
+                    <label for="image" class="form-label">Change Host Image</label>
+                    <input 
+                    name ="listing[image][]" 
                     type="file" 
                     class="form-control"
                   >
@@ -54,10 +108,22 @@
                 </div>
                 <div class="row">
                 <div class="mb-3 col-md-4">
-                    <label for="location" class="form-label">Location</label>
+                    <label for="location" class="form-label">City</label>
                     <input 
-                    name ="listing[location]" 
-                    value="<%= E_listing.location %>" 
+                    name ="listing[location][]" 
+                    value="<%= E_listing.location[0] %>" 
+                    type="text" 
+                    class="form-control"
+                    required
+                    >
+                    <div class="invalid-feedback">pls! Enter valid location</div>
+                    
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="location" class="form-label">State</label>
+                    <input 
+                    name ="listing[location][]" 
+                    value="<%= E_listing.location[1] %>" 
                     type="text" 
                     class="form-control"
                     required
@@ -76,9 +142,69 @@
                     >
                     <div class="invalid-feedback"> pls! Enter valid country name</div>
                 </div>
+        
+                <label for="floatingSelect">Choose Category</label>
+                <div class="form-floating mb-3 col-md-4">
+                  <select
+                    class="form-select"
+                    id="floatingSelect"
+                    aria-label="Floating label select example"
+                    name="listing[category]"
+                  >
+                    <option selected><%= E_listing.category %></option>
+                    <option value="Other">Other</option>
+                    <option value="Trending">Trending</option>
+                    <option value="Castles">Castles</option>
+                    <option value="Campign">Campign</option>
+                    <option value="Farms">Farms</option>
+                    <option value="Amazing pools">Amazing pools</option>
+                    <option value="Beach Front">Beach Front</option>
+                    <option value="Cabin">Cabin</option>
+                    <option value="Boats">Boats</option>
+                    <option value="Rooms">Rooms</option>
+                    <option value="Mountain">Mountain</option>
+                    <option value="Historical places">Historical places</option>
+                    <option value="Arctic">Arctic</option>
+                    <option value="ski-in/out">ski-in/out</option>
+                  </select>
+                </div>
+                <div id="facilities">
+                <% for( let i = 0; i <  E_listing.facilities.length; i++ ) { %>
+                    <div class="mb-3  col-md-8">
+                        <label for="facilities" class="form-label">Facilities</label>
+                        <input 
+                        name ="listing[facilities][]" 
+                        value="<%= E_listing.facilities[i] %>" 
+                        type="text" 
+                        class="form-control"
+                        required
+                        >
+                        <div class="invalid-feedback"> pls! Enter valid country name</div>
+                    </div>
+                <% } %>
+                    
+                    </div>
+                    <button style="all: unset; cursor: pointer; color: #fe424d;" id="facility_add_button" class="mb-3">Add More Facilities <i class="fa-solid fa-plus"></i></button><br>
+
             </div>
                 <button class="btn btn-dark add_btn">Add</button><br>
         </div>
         </div>
         </form>
+        <script>
+            document.getElementById("facility_add_button").addEventListener("click", function (event) {
+               event.preventDefault(); // Prevent page refresh
+           
+               let newFacilityDiv = document.createElement("div");
+               newFacilityDiv.classList.add("mb-3");
+           
+               let newInput = document.createElement("input");
+               newInput.setAttribute("name", "listing[facilities][]");
+               newInput.setAttribute("class", "form-control");
+               newInput.setAttribute("placeholder", "Enter Facilities");
+               newFacilityDiv.appendChild(newInput);
+           
+               document.getElementById("facilities").appendChild(newFacilityDiv);
+             });
+           </script>
 </body>
