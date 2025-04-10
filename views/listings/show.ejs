@@ -1,225 +1,318 @@
 <style>
+  .show_card .img-fluid {
+    border-radius: 20px;
+    object-fit: fill;
+    width: 100%;
+    height: 80%;
+  }
+  .show_card {
+    border: none;
+  }
+  .img_div {
+    height: 70%;
+  }
+  .show_card .host_details {
+    display: flex;
+    height: 50px;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
 
-       
-       .show_card .img-fluid{
-        border-radius:20px ;
-        object-fit: fill;
-        width: 100%;
-        height: 80%;
-       }
-       .show_card{
-        border: none;
-        
-       }
-       .img_div{
-            height: 70%;
-        }
-       .show_card .host_details{
-            display: flex;
-            height: 50px;
-            padding-top: 4rem;
-            padding-bottom: 1rem;
-            align-items: center;
-            gap:1rem;
-            margin-bottom: 1rem;
-       }
+  .show_card .host_details img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
+  .show_card .host_details h4 {
+    font-size: 1rem;
+  }
 
-       .show_card .host_details img{
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-       }
-       .show_card .host_details h4{
-            font-size: 1rem;
-       }
+  .hotel_details {
+    display: flex;
+    flex-direction: column;
+  }
 
-       .hotel_details{
-            display: flex;
-            flex-direction: column;
-
-       }
-
-       .hotel_details p{
-        font-size: 1.2rem;
-            margin: 0;
-            font-family:sans-serif;
-       }
-       .main_container{
-        display: flex;
-       }
-       .room_container{
-        display: flex;
-        justify-content: space-between;
-       }
-       .room_container .slider button{
-            all: unset;
-            font-size: 1rem;
-            cursor: pointer;
-       }
-       .room_img_container{
-        overflow-x: auto;
-        scroll-behavior: smooth; 
-       }
+  .hotel_details p {
+    font-size: 1.2rem;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  .main_container {
+    display: flex;
+  }
+  .room_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .room_container .slider button {
+    all: unset;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .room_img_container {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  .review {
+    border: 1px solid rgb(36, 34, 34,0.3);
+  }
 </style>
 
-<% layout("/layouts/bolierplate")  %>
+<% layout("/layouts/bolierplate") %>
 
-
-<div class="row mt-3 main_container" >
-    <div class="col-lg-8 col-md-10 col-sm-12 offset-md-1 offset-sm-0" style="padding: 0!important; padding-inline: 0.5rem !important;">
-        <div class="show_card offset-lg-2 offset-md-1 offset-sm-0">
-            <div class="row">
-                <div  class="col-lg-12  col-md-12 col-sm-12 img_div">
-                <img src="<%= ind_listing.image[0].url %>" alt="image" class="img-fluid">
-                </div>
-            </div>
-            <div class="host_details">
-                <img src="<%= ind_listing.image[4].url %>" alt="">
-                <h4><b>Hosted By :</b> <%= ind_listing.hostName %></h4>
-            </div>
-            <div class="hotel_details">
-                <p><b><%= ind_listing.title%></b></p>
-                <p><%= ind_listing.description %></p>
-                <p><%= ind_listing.location[0] %>,<%= ind_listing.location[1] %></p>
-                <p><%= ind_listing.country %></p>
-                <p class="mb-3">&#8377;<b><%= ind_listing.price %></b>/night</p>
-                <% if(curruser && curruser._id.equals(ind_listing.owner._id)) { %> 
-                    <div class="btns ">
-                        <a href="/listings/<%= ind_listing._id %>/edit" class="btn btn-dark  add_btn" style="padding-inline: 1rem !important; margin-right: 10px;">Edit</a>
-        
-                        <form method="post" action="/listings/<%= ind_listing._id %>?_method=Delete">
-                            <button type="submit" class="btn btn-dark">Delete</button>
-                        </form>
-                    </div>
-                <% } %>
-            </div>
-           <hr>
+<div class="row mt-3 main_container">
+  <div
+    class="col-lg-8 col-md-10 col-sm-12 offset-md-1 offset-sm-0"
+    style="padding: 0 !important; padding-inline: 0.5rem !important"
+  >
+    <div class="show_card offset-lg-2 offset-md-1 offset-sm-0">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 img_div">
+          <img
+            src="<%= ind_listing.image[0].url %>"
+            alt="image"
+            class="img-fluid"
+          />
         </div>
+      </div>
+      <div class="host_details">
+        <img src="<%= ind_listing.image[4].url %>" alt="" />
+        <h4><b>Hosted By :</b> <%= ind_listing.hostName %></h4>
+      </div>
+      <div class="hotel_details">
+        <p><b><%= ind_listing.title%></b></p>
+        <p><%= ind_listing.description %></p>
+        <p><%= ind_listing.location[0] %>,<%= ind_listing.location[1] %></p>
+        <p><%= ind_listing.country %></p>
+        <p class="mb-3">&#8377;<b><%= ind_listing.price %></b>/night</p>
+        <% if(curruser && curruser._id.equals(ind_listing.owner._id)) { %>
+        <div class="btns">
+          <a
+            href="/listings/<%= ind_listing._id %>/edit"
+            class="btn btn-dark add_btn"
+            style="padding-inline: 1rem !important; margin-right: 10px"
+            >Edit</a
+          >
 
-        <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-3">
-
-            <p><b><i class="fa-solid fa-hotel"></i>&nbsp; &nbsp; &nbsp;Facilities</b></p>
-
-            <div class="row" style="margin-left: 1rem;">
-                <% for(facility of ind_listing.facilities ) { %>
-                    <ul class="col-md-6 col-sm-12">
-                        <li><%= facility %></li>
-                    </ul>
-                 <% } %>
-            </div>
-            <hr>
+          <form
+            method="post"
+            action="/listings/<%= ind_listing._id %>?_method=Delete"
+          >
+            <button type="submit" class="btn btn-dark">Delete</button>
+          </form>
         </div>
+        <% } %>
+      </div>
+      <hr />
+    </div>
 
-            <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-2" >
-                    <div class="room_container">
-                        <p><b><i class="fa-solid fa-bed"></i>&nbsp; &nbsp; &nbsp;Where You sleep</b></p>
-                        <div class="slider">
-                            <button class="scroll-btn left" onclick="scrollLeftSide()">  <i class="fa-solid fa-circle-chevron-left"></i> </button>
-                            <button class="scroll-btn left" onclick="scrollRightSide()">  <i class="fa-solid fa-circle-chevron-right"></i> </button>
+    <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-3">
+      <p>
+        <b><i class="fa-solid fa-hotel"></i>&nbsp; &nbsp; &nbsp;Facilities</b>
+      </p>
 
-                        </div>
-                    </div>
-                
+      <div class="row" style="margin-left: 1rem">
+        <% for(facility of ind_listing.facilities ) { %>
+        <ul class="col-md-6 col-sm-12">
+          <li><%= facility %></li>
+        </ul>
+        <% } %>
+      </div>
+      <hr />
+    </div>
 
-                <div style=" display: flex;" class="room_img_container">
-                    <img src="<%= ind_listing.image[1].url %>" alt="Room Images" style="height: 150px; width: 300px; object-fit: cover; margin-right: 10px;">
-                    <img src="<%= ind_listing.image[2].url %>" alt="Room Images" style="height: 150px; width: 300px; object-fit: cover; margin-right: 10px;">
-                    <img src="<%= ind_listing.image[3].url %>" alt="Room Images" style="height: 150px; width: 300px; object-fit: cover; margin-right: 10px;">
-                </div>
+    <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-2">
+      <div class="room_container">
+        <p>
+          <b
+            ><i class="fa-solid fa-bed"></i>&nbsp; &nbsp; &nbsp;Where You
+            sleep</b
+          >
+        </p>
+        <div class="slider">
+          <button class="scroll-btn left" onclick="scrollLeftSide()">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+          </button>
+          <button class="scroll-btn left" onclick="scrollRightSide()">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+          </button>
+        </div>
+      </div>
 
-            </div>
-        
-        
-        <div class="offset-lg-2 offset-md-1 offset-sm-0 col-10 mb-3"> 
-           <% if(curruser) { %> 
-           <hr>
-            <h4>Leave a Review</h4> 
-            <form action="/listings/<%= ind_listing._id %>/reviews" method="post" class="needs-validation" novalidate>
-                <div class="mb-3 mt-3" >
-                    <label  class="form-label" for="review[rating]">rating</label>
-                    <fieldset class="starability-grow">
-                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                        <label for="first-rate1" title="Terrible">1 star</label>
-                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                        <label for="first-rate2" title="Not good">2 stars</label>
-                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                        <label for="first-rate3" title="Average">3 stars</label>
-                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                        <label for="first-rate4" title="Very good">4 stars</label>
-                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                        <label for="first-rate5" title="Amazing">5 stars</label>
-                      </fieldset>
-                </div>
-                <div  class="mb-3 mt-3 col-12">
-                    <label class="form-label" for="comment">comment</label>
-                    <textarea class="form-control" nonvalidate type="text" name="review[comment]" cols="30" rows="5" id="rating"  required></textarea>
-                    <div class="invalid-feedback"> plss add some comment for review</div>
-                </div>
-                <button class="btn btn-outline-dark">Submit</button>
+      <div style="display: flex" class="room_img_container">
+        <img
+          src="<%= ind_listing.image[1].url %>"
+          alt="Room Images"
+          style="
+            height: 150px;
+            width: 300px;
+            object-fit: cover;
+            margin-right: 10px;
+          "
+        />
+        <img
+          src="<%= ind_listing.image[2].url %>"
+          alt="Room Images"
+          style="
+            height: 150px;
+            width: 300px;
+            object-fit: cover;
+            margin-right: 10px;
+          "
+        />
+        <img
+          src="<%= ind_listing.image[3].url %>"
+          alt="Room Images"
+          style="
+            height: 150px;
+            width: 300px;
+            object-fit: cover;
+            margin-right: 10px;
+          "
+        />
+      </div>
+    </div>
+
+    <div class="offset-lg-2 offset-md-1 offset-sm-0 mt-2">
+      <% if(curruser) { %>
+      <hr />
+      <h4>Leave a Review</h4>
+      <form
+        action="/listings/<%= ind_listing._id %>/reviews"
+        method="post"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="mb-3 mt-3">
+          <label class="form-label" for="review[rating]">rating</label>
+          <fieldset class="starability-grow">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="first-rate1"
+              name="review[rating]"
+              value="1"
+            />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="first-rate2"
+              name="review[rating]"
+              value="2"
+            />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="first-rate3"
+              name="review[rating]"
+              value="3"
+            />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="first-rate4"
+              name="review[rating]"
+              value="4"
+            />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="first-rate5"
+              name="review[rating]"
+              value="5"
+            />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="mb-3 mt-3 col-12">
+          <label class="form-label" for="comment">comment</label>
+          <textarea
+            class="form-control"
+            nonvalidate
+            type="text"
+            name="review[comment]"
+            cols="30"
+            rows="5"
+            id="rating"
+            required
+          ></textarea>
+          <div class="invalid-feedback">plss add some comment for review</div>
+        </div>
+        <button class="btn btn-outline-dark">Submit</button>
+      </form>
+
+      <% } %> <% if (ind_listing.review.length > 0) { %>
+      <hr />
+      <p><b>All Reviews</b></p>
+
+      <div class="row">
+        <% for(review of ind_listing.review ) { %>
+        <div class="card mb-3 ms-3 col-sm-5 col-11 pb-3 review">
+          <div class="card-header"><b><%= review.author.username %></b></div>
+          <div class="card-body text-secondary">
+            <% for( let index = 1; index <= 5 ; index++ ) { %> <% if(index <=
+            review.rating) { %>
+
+            <span style="color: #ffd700; font-size: 1.4rem"> &#9733; </span>
+
+            <% } else { %>
+            <span style="color: #cccccc; font-size: 1.4rem"> &#9733; </span>
+            <% } %> <% } %>
+
+            <p class="card-text"><%= review.comment %></p>
+
+            <% if(curruser && curruser._id.equals(review.author._id)) { %>
+            <form
+              action="/listings/<%= ind_listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+              method="post"
+            >
+              <button class="btn btn-secondary btn-sm">Delete</button>
             </form>
-           
             <% } %>
-           
-            <%  if (ind_listing.review.length > 0) { %>
-            <hr>
-            <p><b>All Reviews</b></p>
-
-            <div class="row">
-                <% for(review of ind_listing.review ) { %>
-                    <div class="card border-secondary mb-3 ms-3 col-5">
-                        <div class="card-header"><b><%= review.author.username %></b></div>
-                        <div class="card-body  text-secondary">
-                            <p class="card-text"><%= review.comment %><p class="starability-result card-text" data-rating=<%= review.rating %>></p></p>
-                            
-                            <% if(curruser && curruser._id.equals(review.author._id)) { %> 
-                            <form class="mb-3" action="/listings/<%= ind_listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
-                                <button class="btn btn-secondary btn-sm">Delete</button>
-                            </form>
-                            <% } %>
-                        </div>
-                    </div>
-                 <% } %>
-            </div>
-         <% } %>
+          </div>
         </div>
-
-       
+        <% } %>
+      </div>
+      <% } %>
+    </div>
 
     <script>
-        const mapToken = "<%= process.env.MAP_TOKEN %>";
-        const coordinates = <%- JSON.stringify(ind_listing.geometry.coordinates) %>
+      const mapToken = "<%= process.env.MAP_TOKEN %>";
+      const coordinates = <%- JSON.stringify(ind_listing.geometry.coordinates) %>
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-            <div class="offset-lg-2 offset-md-1 offset-sm-0 mb-3 row">
-                <h3>Where you’ll be</h3>
-                <div id="map" class=" col-md-8 col-sm-12 "></div>
-            
-            </div>
-        
+    <div class="offset-lg-2 offset-md-1 offset-sm-0 mb-3 row">
+      <h3>Where you’ll be</h3>
+      <div id="map" class="col-md-8 col-sm-12"></div>
+    </div>
+  </div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    let roomImages = document.getElementById("imageContainer");
-    let leftBtn = document.getElementById("leftBtn");
-    let rightBtn = document.getElementById("rightBtn");
+const filters = document.querySelector(".filters");
 
-    if (leftBtn && rightBtn && roomImages) {
-        leftBtn.addEventListener("click", function () {
-            console.log("Left button clicked");
-            roomImages.scrollBy({ left: -300, behavior: "smooth" });
-        });
+function scrollLeftSide() {
+  console.log("Before Left Scroll:", filters.scrollLeft);
+  filters.scrollBy({ left: -200, behavior: "smooth" });
+  console.log("After Left Scroll:", filters.scrollLeft);
+}
 
-        rightBtn.addEventListener("click", function () {
-            console.log("Right button clicked");
-            roomImages.scrollBy({ left: 300, behavior: "smooth" });
-        });
-    } else {
-        console.error("One or more elements not found!");
-    }
-});
-
+function scrollRight() {
+  console.log("Before right Scroll:", filters.scrollLeft);
+  filters.scrollBy({ left: 200, behavior: "smooth" });
+  console.log("After right Scroll:", filters.scrollLeft);
+}
 </script>
 
 <script src="/js/map.js"></script>
